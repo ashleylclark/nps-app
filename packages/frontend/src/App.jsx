@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-import Header from './pages/header/Header'
 import Search from './pages/search/Search'
 import Park from './pages/park/Park'
 import Hours from './pages/hours/Hours'
@@ -14,7 +13,6 @@ function App() {
 
   return (
     <div>
-      <Header />
       <Search />
       <Park />
       <Hours />

@@ -10,7 +10,7 @@ import "./search.css";
 
 const Search = () => {
   return (
-    <div className='search-page'>
+    <div id='search-page'>
       <Navbar>
         <Container>
           <Navbar.Brand href="/">Search</Navbar.Brand>
@@ -46,7 +46,7 @@ const Search = () => {
         </Form>
         <Form.Control type="text"/>
       </Container>
-      <Nav>
+      <Nav className='temp'>
         <Nav.Item as="li">
           <Nav.Link href='ParkName' class='link-secondary'>Temp to Park</Nav.Link>
         </Nav.Item>

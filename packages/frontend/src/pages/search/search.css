@@ -1,4 +1,4 @@
-.search-page {
+#search-page {
   background: url('/src/assets/search-background.png');
   background-repeat: no-repeat;
   background-size: cover;
@@ -38,7 +38,7 @@ form {
   margin: auto;
 }
 
-.nav {
+.temp {
   position: absolute;
   top: 65%;
   left: 45%;

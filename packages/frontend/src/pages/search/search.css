@@ -1,0 +1,12 @@
+.search-page {
+  background: url('/src/assets/search-background.png');
+}
+
+.navbar {
+  background: #263a29a9;
+}
+
+.park-search {
+  background: rgba(242, 227, 219, 0.5);
+  padding: 4em;
+}

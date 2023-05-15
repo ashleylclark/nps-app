@@ -1,5 +1,9 @@
 .search-page {
   background: url('/src/assets/search-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  min-height: 100%;
 }
 
 .navbar {
@@ -8,5 +12,36 @@
 
 .park-search {
   background: rgba(242, 227, 219, 0.5);
+  position:absolute;
+  top: 25%;
+  left: 25%;
   padding: 4em;
+  width: 50%;
+}
+
+h2 {
+  font-size: 2.2em;
+}
+
+p {
+  margin-bottom: 5%;
+  font-size: 1.3em;
+}
+
+form {
+  margin-bottom: 20px;
+  font-size: 1.3em;
+}
+
+.form-control {
+  width: 80%;
+  margin: auto;
+}
+
+.nav {
+  position: absolute;
+  top: 65%;
+  left: 45%;
+  background-color: black;
+  padding: 2px;
 }

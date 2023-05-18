@@ -10,7 +10,7 @@
   background: #263a29a9;
 }
 
-.park-search {
+#park-search {
   background: rgba(242, 227, 219, 0.5);
   position:absolute;
   top: 25%;
@@ -24,7 +24,7 @@ h2 {
 }
 
 p {
-  margin-bottom: 5%;
+  /* margin-bottom: 5%; */
   font-size: 1.3em;
 }
 
@@ -40,7 +40,7 @@ form {
 
 .temp {
   position: absolute;
-  top: 65%;
+  top: 80%;
   left: 45%;
   background-color: black;
   padding: 2px;

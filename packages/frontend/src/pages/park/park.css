@@ -1,3 +1,11 @@
 #park-page {
   background-color: #41644A;
 }
+
+#description {
+  height: 100px;
+}
+
+.tabContent {
+  height: 100px;
+}

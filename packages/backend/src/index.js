@@ -1,34 +1,73 @@
 // importing dependencies
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+import { getData } from './getData.js';
+import express from 'express';
+import cors from 'cors';
+
+import { stateCodes } from './conversion.js';
 
 // defining express app
 const app = express();
-// defining array to work as database(temp)
-const ads = [
-  {title: 'Hello World!'}
-];
 
-// using boy parser to pare JSON bodies into JS objects
-// app.use(bodyParser.json());
+// app.use(express.urlencoded()); // Parese URL-encoded bodies
 
 app.use(cors());
 app.use(express.json());
 
-// defning an endpoint to return all adds
-// app.get('/', (req, res) => {
-//   // res.send(ads);
-//   res.send("hello world :(");
-// });
 
-app.get("/message", (req, res) => {
-  res.json({ message: "Hello from server!" });
+// park: info aboout park (use: parkCode)
+
+app.get('/park/:pkId', async (req, res) => {
+  req.params;
+  // console.log(req.params.pkId);
+  let data = await getData('parks', { parkCode: req.params.pkId });
+  // console.log(data);
+  res.json(data);
 })
 
-app.get("/park", (req, res) => {
-  res.json({ pName: "Yellow Stone" });
+
+// parks: park names and park codes (use: stateCode or nothing)
+
+app.get('/parks/:stID?', async (req, res) => {
+  // var key = req.params.stID;
+  req.params;
+  let data = await getData('parks', {
+    stateCode: req.params.stID,
+    limit: 200,
+    q: '"National Park"'
+  });
+  for (let i = data.length - 1; i >= 0; --i) {
+    // if (data[i].designation != 'National Park') {
+    if (!data[i].fullName.includes("National Park") && !data[i].fullName.includes("National and State Parks")) {
+      // console.log(data[i].fullName);
+      data.splice(i, 1);
+    }
+  }
+  // only sends park name and code
+  let parks1 = {};
+  for (let i = 0; i < data.length; i++) {
+    parks1[data[i].parkCode] = data[i].fullName;
+  }
+  // console.log(data);
+  res.json(parks1);
 })
+
+
+// states: all states and codes
+
+app.get('/states', (req, res) => {
+  res.json(stateCodes);
+})
+
+
+// camping: get info about camping in park w/ id
+
+app.get('/camps/:pkId', async (req, res) => {
+  req.params;
+  let data = await getData("campgrounds", { parkCode: req.params.pkId });
+  // console.log(data);
+  res.json(data);
+})
+
 
 // starting server
 app.listen(3001, () => {

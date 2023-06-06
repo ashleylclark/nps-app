@@ -7,30 +7,30 @@ import Park from './pages/park/Park'
 import Hours from './pages/hours/Hours'
 import Camping from './pages/camping/Camping'
 import Activities from './pages/activities/Activities'
-import Media from './pages/media/Media'
+import Media from './pages/media/Media';
 
 const router = createBrowserRouter([
   { path:"/",
     element: <Search />,
   },
   {
-    path: "ParkName",
+    path: ":id",
     element: <Park />
   },
   {
-    path:"ParkName/hours",
+    path:":id/hours",
     element: <Hours />
   },
   {
-    path:"ParkName/camping",
+    path:":id/camping",
     element: <Camping />
   },
   {
-    path:"ParkName/activites",
+    path:":id/activites",
     element: <Activities />
   },
   {
-    path:"ParkName/media",
+    path:":id/media",
     element: <Media />
   },
 ]);

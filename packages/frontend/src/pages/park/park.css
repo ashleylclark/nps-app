@@ -1,11 +1,52 @@
 #park-page {
   background-color: #41644A;
+  background-size: cover;
+}
+
+#park-nav {
+  background: #2f4834;
+}
+
+.pLinks {
+  padding-right: 10px;
+}
+
+#name {
+  text-align: center;
+  margin-top: 4%;
+  margin-bottom: 4%;
 }
 
 #description {
-  height: 100px;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  background-color: #F2E3DB;
+  padding: 2%;
 }
 
-.tabContent {
-  height: 100px;
+#description p {
+  margin-top: 0.8rem;
 }
+
+/* #info-tabs {
+  padding-bottom: 50px;
+
+} */
+
+.nav-tabs {
+  --bs-nav-tabs-border-color: #F2E3DB;
+  --bs-nav-tabs-link-active-bg: #F2E3DB;
+  --bs-nav-tabs-link-hover-border-color: #F2E3DB;
+  --bs-nav-tabs-link-active-color: black;
+  --bs-nav-tabs-link-active-border-color: #F2E3DB;
+  --bs-nav-link-color: #F2E3DB;
+  --bs-nav-link-hover-color: #F2E3DB;
+}
+
+.tab-content {
+  padding: 10px;
+  border-bottom: #000;
+  border-bottom-width: 10px;
+  min-height: 200px;
+}
+

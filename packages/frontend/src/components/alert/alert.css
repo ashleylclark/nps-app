@@ -1,0 +1,8 @@
+.btn-primary {
+  background-color: transparent;
+  color: #F2E3DB;
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-color: #f2e3dbb9;
+  border: none;
+  margin-left: 49%;
+}

@@ -59,6 +59,35 @@ app.get('/states', (req, res) => {
 })
 
 
+// activities: get all activity names and ids
+app.get('/act', async (req, res) => {
+  let data = await getData('activities');
+  res.json(data);
+})
+
+
+// act/parks: get list of park names and codes by activites
+
+app.get('/act/:aId', async (req, res) => {
+  req.params;
+  let data = await getData('activities/parks', {
+    id: req.params.aId
+  });
+  // console.log(data);
+  let parks = {};
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < data[i].parks.length; j++) {
+      if (data[i].parks[j].fullName.includes("National Park") || data[i].parks[j].fullName.includes("National and State Parks")) {
+        if (data[i].parks[j].designation !== "") {
+          parks[data[i].parks[j].parkCode] = data[i].parks[j].fullName;
+        }
+      }
+    }
+  }
+  res.json(parks);
+})
+
+
 // camping: get info about camping in park w/ id
 
 app.get('/camps/:pkId', async (req, res) => {

@@ -8,10 +8,10 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead.bs5.css';
 import "./search.css";
-import { activties } from "../../components/utilities"
+import { get_ids } from "../../components/utilities"
 import Results from '../../components/results';
 import { useNavigate } from 'react-router-dom';
-import { fetch_data } from '../../components/utilities';
+// import { fetch_data } from '../../components/utilities';
 import { get_key } from '../../components/utilities';
 import Loading from '../../components/loading/Loading';
 
@@ -27,17 +27,23 @@ var stateNames = [];
 var parks = {};
 // park names
 var parkNames = [];
-// var parkNames = {acad: "Acadia", arch: "Arches", badl: "Badlands"};
+// activities and their ids
+var activities = {};
+// activity names
+var actNames = [];
 
 const Search = () => {
   const [loading, setLoading] = useState(true);
+
+  const [type, setType] = useState("na");
+  const [form, setForm] = useState(false);
 
   const [parkSelection, setParkSelection] = useState([]);
   const [stateSelection, setStateSelection] = useState([]);
   const [actSelection, setActSelection] = useState([]);
 
   const [isShown, setIsShown] = useState(false);
-  const [selection, setSelection] = useState([]);
+  const [selection, setSelection] = useState({});
   const navigate = useNavigate();
 
   const [pa, setPa] = useState([]);
@@ -50,20 +56,26 @@ const Search = () => {
   const fetchFormData = async () => {
     // get all parks and park codes
     const parkResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/parks/`);
-    const parkData = await parkResponse.json();
-    // copy data to new object
-    for (const key in parkData) {
-      parks[key] = parkData[key];
-      parkNames.indexOf(parkData[key]) === -1 ? parkNames.push(parkData[key]) : console.log("This item already exists");
+    parks = await parkResponse.json();
+    // park name list for form
+    for (const key in parks) {
+      parkNames.indexOf(parks[key]) === -1 ? parkNames.push(parks[key]) : console.log("This item already exists");
     }
 
     // get all states and state codes
     const stateResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/states`);
-    const stateData = await stateResponse.json();
+    states = await stateResponse.json();
     // gets a list of only state names for selection form list
-    for (const key in stateData) {
-      states[key] = stateData[key];
-      stateNames.indexOf(stateData[key]) === -1 ? stateNames.push(stateData[key]) : console.log("This item already exists");
+    for (const key in states) {
+      stateNames.indexOf(states[key]) === -1 ? stateNames.push(states[key]) : console.log("This item already exists");
+    }
+
+    // get all activities and ids
+    const actResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/act`);
+    activities = await actResponse.json();
+    // activity list for form
+    for (let i = 0; i < activities.length; i++) {
+      actNames[i] = activities[i].name;
     }
   }
 
@@ -73,19 +85,48 @@ const Search = () => {
     fetchFormData().then(() => setLoading(false));
   }, []);
 
+  const showForm = (value) => {
+    if (value === "park") {
+      return (
+        <Typeahead
+          className='type-search'
+          id='by-park'
+          labelKey="name"
+          onChange={setParkSelection}
+          options={parkNames}
+          placeholder='Choose a park...'
+          selected={parkSelection}
+        />
+      );
+    } else if (value === "state") {
+      return (
+        <Typeahead
+          className='type-search'
+          id='by-state'
+          labelKey="name"
+          onChange={setStateSelection}
+          options={stateNames}
+          placeholder='Choose a state...'
+          selected={stateSelection}
+        />
+      );
+    } else if (value === "activities") {
+      return (
+        <Typeahead
+          className='type-search'
+          id='by-activitiy'
+          labelKey="name"
+          multiple
+          onChange={setActSelection}
+          options={actNames}
+          placeholder='Choose activities...'
+          selected={actSelection}
+        />
+      )
+    }
+  }
+
   const handleClick = e => {
-    // select park by name... convert to code
-    // choose a method
-    // let parkCode = "bisc";
-    // fetch(`${import.meta.env.VITE_API_BASE_URL}/park/${parkCode}`)
-    //   .then(response => response.json)
-    //   .then(data => console.log(data));
-
-    // let stateCode = "IN";
-    // fetch(`${import.meta.env.VITE_API_BASE_URL}/parks/${stateCode}`)
-    //   .then(response => response.json())
-    //   .then(data => console.log(data));
-
     if (!isObjEmpty(parkSelection)) {
       console.log(`park chosen: ${parkSelection}`);
       console.log(parks);
@@ -95,22 +136,33 @@ const Search = () => {
       navigate(`${result}`);
     }
 
+    else if (!isObjEmpty(stateSelection)) {
+      // convert to code
+      let result = get_key(states, stateSelection[0]);
 
-    // if (!isObjEmpty(stateSelection)) {
-    //   handle...
-    //   // FetchData("state", stateSelection);
-    //   setIsShown(true);
-    //   setSelection(stateSelection);
-    // }
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/parks/${result}`)
+        .then(response => response.json())
+        .then(data => {
+          setIsShown(true);
+          setSelection({choice: stateSelection, info: data});
+        });
+    }
 
-    // else if (!isObjEmpty(actSelection)) {
-    //   FetchData("activity", actSelection);
-    //   setIsShown(true);
-    //   setSelection(actSelection);
-    // }
-    // else {
-    //   console.log("no option chosen");
-    // }
+    else if (!isObjEmpty(actSelection)) {
+      // convert list of activites to list of ids
+      console.log(actSelection);
+      let result = get_ids(activities, actSelection);
+
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/act/${result}`)
+        .then(response => response.json())
+        .then(data => {
+          setIsShown(true);
+          setSelection({choice: actSelection, info: data});
+        });
+    }
+    else {
+      console.log("no option chosen");
+    }
   };
 
   return loading ? <Loading /> : (
@@ -123,43 +175,22 @@ const Search = () => {
       <Container id="park-search" className='text-center'>
         <h2>Select a Park</h2>
         <p>Choose one of the following search methods.</p>
-        <Form.Group>
-          <Form.Label>Park</Form.Label>
-          <Typeahead
-            id="by-park"
-            labelKey="name"
-            onChange={setParkSelection}
-            options={parkNames}
-            placeholder='Choose a park...'
-            selected={parkSelection}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>State</Form.Label>
-          <Typeahead
-            id="by-state"
-            labelKey="name"
-            onChange={setStateSelection}
-            options={stateNames}
-            placeholder='Choose a state...'
-            selected={stateSelection}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Activities</Form.Label>
-          <Typeahead
-            id="by-activity"
-            labelKey="name"
-            multiple
-            onChange={setActSelection}
-            options={activties}
-            placeholder='Choose activities...'
-            selected={actSelection}
-          />
-        </Form.Group>
+        <Form.Control
+          as="select"
+          value={type}
+          onChange={e => {
+            setType(e.target.value);
+            setForm(true);
+          }}>
+          <option value="na">Choose a search method</option>
+          <option value="park">Park</option>
+          <option value="state">State</option>
+          <option value="activities">Activities</option>
+        </Form.Control>
+        {form && showForm(type)}
         <Button variant='outline-dark' onClick={handleClick}>Go</Button>
+        {isShown && <Results props={selection} />}
       </Container>
-      {isShown && <Results choice={selection} />}
     </div>
   );
 }

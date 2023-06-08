@@ -6,7 +6,6 @@ import Search from './pages/search/Search'
 import Park from './pages/park/Park'
 import Hours from './pages/hours/Hours'
 import Camping from './pages/camping/Camping'
-import Activities from './pages/activities/Activities'
 import Media from './pages/media/Media';
 
 const router = createBrowserRouter([
@@ -24,10 +23,6 @@ const router = createBrowserRouter([
   {
     path:":id/camping",
     element: <Camping />
-  },
-  {
-    path:":id/activites",
-    element: <Activities />
   },
   {
     path:":id/media",

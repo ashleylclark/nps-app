@@ -88,12 +88,33 @@ app.get('/act/:aId', async (req, res) => {
 })
 
 
+// alert: get info about alerts with the park code
+
+app.get('/alert/:pkId', async (req, res) => {
+  req.params;
+  let data = await getData("alerts", { parkCode: req.params.pkId });
+  // console.log(data);
+  res.json(data);
+})
+
+
 // camping: get info about camping in park w/ id
 
 app.get('/camps/:pkId', async (req, res) => {
   req.params;
   let data = await getData("campgrounds", { parkCode: req.params.pkId });
   // console.log(data);
+  res.json(data);
+})
+
+
+// media: get info about various medias w/ park id
+app.get('/media/:pkId', async (req, res) => {
+  req.params;
+  let img = await getData("multimedia/galleries", { parkCode: req.params.pkId });
+  let vid = await getData("multimedia/videos", { parkCode: req.params.pkId });
+  let cam = await getData("webcams", { parkCode: req.params.pkId });
+  let data = [img, cam, vid];
   res.json(data);
 })
 

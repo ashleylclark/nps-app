@@ -8,10 +8,11 @@ import Tabs from 'react-bootstrap/Tabs';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Table from 'react-bootstrap/Table';
+
 import Card from 'react-bootstrap/Card';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Loading from '../../components/loading/Loading';
+import Fees from '../../components/fees';
 
 const Park = () => {
   let params = useParams();
@@ -20,11 +21,27 @@ const Park = () => {
   const [info, setInfo] = useState();
   const [loading, setLoading] = useState(true);
 
+  const [alert, setAlert ] = useState({});
+
+
+
   const fetchPark = async () => {
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/park/${params.id}`);
     const data = await response.json();
     setInfo(data[0]);
-  }
+
+    const alertRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/alert/${params.id}`);
+    const aData = await alertRes.json();
+    setAlert(aData);
+  };
+
+  const showFees = () => {
+    if (!info.entranceFees.length && !info.entrancePasses.length) {
+      return (<p>No Entrance fees or passes.</p>);
+    } else {
+      return (<Fees data={{fees: info.entranceFees, passes:info.entrancePasses}}/>);
+    }
+  };
 
   useEffect(() => {
     fetchPark().then(() => setLoading(false))
@@ -46,7 +63,7 @@ const Park = () => {
       </Navbar>
       <Container id="header">
         <h1 id="name">{info.fullName}</h1>
-        <ParkAlerts code={params.id} />
+        <ParkAlerts data={alert} />
       </Container>
       <Container id="description">
         <h3>Description:</h3>
@@ -90,31 +107,7 @@ const Park = () => {
             </Row>
           </Tab>
           <Tab className="tabContent" eventKey="fees" title="Fees/Parking">
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Cost</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {info.entranceFees.map((entry) => (
-                  <tr>
-                    <td>{entry.title}</td>
-                    <td>{entry.cost}</td>
-                    <td>{entry.description}</td>
-                  </tr>
-                ))}
-                {info.entrancePasses.map((entry) => (
-                  <tr>
-                    <td>{entry.title}</td>
-                    <td>{entry.cost}</td>
-                    <td>{entry.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            {showFees()}
           </Tab>
         </Tabs>
       </Container>

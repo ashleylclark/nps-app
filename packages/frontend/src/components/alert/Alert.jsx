@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './alert.css';
 
-const ParkAlerts = (code) => {
+const ParkAlerts = (alert) => {
   const [show, setShow] = useState(true);
+
+  alert = alert.data;
 
   return show ? (
     <Alert variant="warning" onClose={() => setShow(false)} dismissible>
@@ -17,7 +19,13 @@ const ParkAlerts = (code) => {
           </svg>
         </Col>
         <Col>
-          Here are Park alerts! Code: {code.code}
+          {alert.map((entry) => (
+            <>
+              <Row><Col xs={3}><b>{entry.title}</b></Col><Col><em>{entry.category}</em></Col></Row>
+              <Row><Col>{entry.description}</Col></Row>
+              <Row><Col>{entry.lastIndexedDate}</Col></Row>
+            </>
+          ))}
         </Col>
       </Row>
     </Alert>

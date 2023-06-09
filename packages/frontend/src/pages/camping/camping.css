@@ -1,0 +1,15 @@
+#camp-pg {
+  background-color: #9a887c;
+}
+
+#amenities {
+  max-width: 550px;
+}
+
+#campsites {
+  max-width: 250px;;
+}
+
+.camp-li {
+  font-size: 1.3em;
+}

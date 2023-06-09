@@ -32,7 +32,7 @@ const Camping = () => {
   }, []);
 
   return loading ? <Loading /> : (
-    <div>
+    <div id='camp-pg'>
       <Navbar id='park-nav' sticky='top'>
         <Container>
           <Navbar.Brand href="/">Search</Navbar.Brand>
@@ -71,7 +71,7 @@ const Camping = () => {
               </tbody>
             </Table>
             <h4>Campsites</h4>
-            <ListGroup>
+            <ListGroup id='campsites'>
               <ListGroup.Item>Total Sites: {entry.campsites.totalSites}</ListGroup.Item>
               <ListGroup.Item>Electrical Hookup: {entry.campsites.electricalHookups}</ListGroup.Item>
               <ListGroup.Item>RV Only: {entry.campsites.rvOnly}</ListGroup.Item>
@@ -81,20 +81,20 @@ const Camping = () => {
               <ListGroup.Item>Group: {entry.campsites.group}</ListGroup.Item>
               <ListGroup.Item>Other: {entry.campsites.other}</ListGroup.Item>
             </ListGroup>
-            <h4>Additional Info</h4>
+            <h3>Additional Info</h3>
             <p>{entry.regulationsOverview}</p>
-            <h5>Accessability</h5>
+            <h4>Accessability</h4>
             <ul>
-              <li>{entry.accessibility.wheelchairAccess}</li>
-              <li>{entry.accessibility.adaInfo}</li>
+              <li className='camp-li'>{entry.accessibility.wheelchairAccess}</li>
+              <li className='camp-li'>{entry.accessibility.adaInfo}</li>
             </ul>
-            <h5>RVs & Trailers</h5>
+            <h4>RVs & Trailers</h4>
             <ul>
-              <li>RV max length: {entry.accessibility.rvMaxLength}</li>
-              <li>Trailer max length: {entry.accessibility.trailerMaxLength}</li>
-              <li>{entry.accessibility.rvInfo}</li>
+              <li className='camp-li'>RV max length: {entry.accessibility.rvMaxLength}</li>
+              <li className='camp-li'>Trailer max length: {entry.accessibility.trailerMaxLength}</li>
+              <li className='camp-li'>{entry.accessibility.rvInfo}</li>
             </ul>
-            <h5>Other</h5>
+            <h4>Other</h4>
             <p>{entry.accessibility.cellPhoneInfo} {entry.accessibility.internetInfo}</p>
             <p>{entry.accessibility.fireStovePolicy}</p>
             <p>{entry.accessibility.additionalInfo}</p>

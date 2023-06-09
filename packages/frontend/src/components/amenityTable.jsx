@@ -10,7 +10,7 @@ const AmenityTable = (data) => {
     )
   } else {
     return (
-      <Table>
+      <Table id='amenities'>
         <thead>
           <tr>
             <th>Amenity</th>

@@ -56,21 +56,50 @@ const Park = () => {
             <Nav className='me-auto'>
                 <Link className='pLinks' to="hours" state={{ opHours: info.operatingHours }}>Hours</Link>
                 <Link className='pLinks' to="camping" state={{ code: params.id }}>Camping</Link>
-                <Link className='pLinks' to="media" state={{ code: params.id }}>Videos/Webcams</Link>
+                <Link className='pLinks' to="media" state={{ code: params.id }}>Media</Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container id="header">
-        <h1 id="name">{info.fullName}</h1>
-        <ParkAlerts data={alert} />
-      </Container>
-      <Container id="description">
-        <h3>Description:</h3>
-        <p>{info.description}</p>
-      </Container>
+      {/* <Row md={2} sm={1} xs={1} id="header">
+        <Col md={4}><h1 id="name">{info.fullName}</h1></Col>
+        <Col md={8}><ParkAlerts data={alert} /></Col>
+      </Row> */}
+      <Row id="main" md={2} sm={1} xs={1}>
+        <Col id="desc" md={6}>
+          <Container id="header">
+            <h1 id="name">{info.fullName}</h1>
+            {/* <ParkAlerts id="alert-content" data={alert} /> */}
+          </Container>
+          <Container id="description">
+            <h3>Description:</h3>
+            <p>{info.description}</p>
+          </Container>
+        </Col>
+        <Col id="act" md={6}>
+          <Row md={2}>
+            {info.activities.map((entry) => (
+              <Col className='actCol'>
+                <Card className='actCard'>
+                  <Card.Body>{entry.name}</Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Col>
+      </Row>
       <Container id="info-tabs">
-        <Tabs defaultActiveKey="contact" fill id="tabs">
+        <Tabs defaultActiveKey="alert" fill id="tabs">
+          <Tab className='tabContent' eventKey="alert" title="Alerts">
+            {alert.map((entry) => (
+              <div id="alert">
+                <Row><Col md={6} sm={8}><h3>{entry.title}</h3></Col><Col><h4><em>{entry.category}</em></h4></Col></Row>
+                <p>{entry.description}</p>
+                {entry.lastIndexedDate}
+                <hr/>
+              </div>
+            ))}
+          </Tab>
           <Tab className="tabContent" eventKey="contact" title="Contact Info">
             <Row>
               <Col>
@@ -95,7 +124,7 @@ const Park = () => {
           <Tab className="tabContent" eventKey="weather" title="Weather">
             <p>{info.weatherInfo}</p>
           </Tab>
-          <Tab className="tabContent" eventKey="activities" title="Activities">
+          {/* <Tab className="tabContent" eventKey="activities" title="Activities">
             <Row md={3}>
               {info.activities.map((entry) => (
                 <Col>
@@ -105,7 +134,7 @@ const Park = () => {
                 </Col>
                 ))}
             </Row>
-          </Tab>
+          </Tab> */}
           <Tab className="tabContent" eventKey="fees" title="Fees/Parking">
             {showFees()}
           </Tab>

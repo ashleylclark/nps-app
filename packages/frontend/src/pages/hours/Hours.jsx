@@ -3,6 +3,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import "./hours.css";
 import HoursControl from '../../components/hoursControl';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const Hours = () => {
   const location = useLocation();
@@ -11,16 +13,20 @@ const Hours = () => {
   console.log(hoursInfo);
 
   return (
-    <div>
-      <Navbar>
+    <div id='hour-pg'>
+      <Navbar id="hour-nav">
         <Container>
           <Navbar.Brand href='/'>Search</Navbar.Brand>
         </Container>
       </Navbar>
-      <h1>Operating Hours</h1>
-      {hoursInfo.map((ent) => (
-        <HoursControl data={ent} />
-      ))}
+      <h1 id="title">Operating Hours</h1>
+      <Row id='hr-list' lg={2} sm={1}>
+        {hoursInfo.map((ent) => (
+          <Col className='hrs'>
+            <HoursControl data={ent} />
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 }

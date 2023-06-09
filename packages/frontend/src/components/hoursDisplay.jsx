@@ -4,7 +4,7 @@ const HoursDisplay = (type) => {
   let days = type.type;
 
   return (
-    <Table striped bordered hover>
+    <Table id='hr-table' striped bordered hover>
       <tr>
         <td>Sunday</td>
         <td>{days.sunday}</td>

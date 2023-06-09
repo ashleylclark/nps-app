@@ -1,0 +1,24 @@
+#hour-pg {
+  background-color: #F2E3DB;
+}
+
+#hour-nav {
+  background-color: #6F5C4F;
+}
+
+#title {
+  margin: 2%;
+}
+
+#hr-list {
+  margin: 2%;
+}
+
+.hrs {
+  padding-left: 0;
+}
+
+#hr-table{
+  max-width: 400px;
+  font-size: 1.2em;
+}

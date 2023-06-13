@@ -1,13 +1,51 @@
 #camp-pg {
   background-color: #9a887c;
+  font-family: 'Raleway', sans-serif;
+}
+
+.camp-p {
+  padding: 10px;
+}
+
+.c-headers {
+  font-weight: 600;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+
+.c-hrs {
+  margin-bottom: 20px;
+}
+
+#reserv {
+  max-width: 700px;
+}
+
+#mkres {
+  font-size: 1.3rem;
+  color: #6a5b52;
 }
 
 #amenities {
-  max-width: 550px;
+  /* max-width: 600px; */
+  font-size: 1.3rem;
+  border: #F2E3DB;
+}
+
+#c-fees {
+  font-size: 1.3rem;
 }
 
 #campsites {
-  max-width: 250px;;
+  max-width: 250px;
+}
+
+.c-info {
+  background-color: #F2E3DB;
+}
+
+#add-info {
+  padding-left: 10px;
 }
 
 .camp-li {

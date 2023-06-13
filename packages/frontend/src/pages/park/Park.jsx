@@ -13,6 +13,7 @@ import Card from 'react-bootstrap/Card';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Loading from '../../components/loading/Loading';
 import Fees from '../../components/fees';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 const Park = () => {
   let params = useParams();
@@ -43,9 +44,31 @@ const Park = () => {
     }
   };
 
+  const isAlert = () => {
+    if (alert.length) {
+      return (
+        <>
+        {alert.map((entry) => (
+          <div className="alert">
+            <Row><Col md={6} sm={8}><h3>{entry.title}</h3></Col><Col><h4><em>{entry.category}</em></h4></Col></Row>
+            <p>{entry.description}</p>
+            {entry.lastIndexedDate}
+            <hr/>
+          </div>
+        ))}
+        </>
+      );
+    } else {
+      return(
+        <p>No active alerts at this time.</p>
+      );
+    }
+  }
+
   useEffect(() => {
     fetchPark().then(() => setLoading(false))
   }, []);
+
 
   return loading ? <Loading /> : (
     <div id="park-page">
@@ -61,15 +84,10 @@ const Park = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* <Row md={2} sm={1} xs={1} id="header">
-        <Col md={4}><h1 id="name">{info.fullName}</h1></Col>
-        <Col md={8}><ParkAlerts data={alert} /></Col>
-      </Row> */}
       <Row id="main" md={2} sm={1} xs={1}>
         <Col id="desc" md={6}>
           <Container id="header">
             <h1 id="name">{info.fullName}</h1>
-            {/* <ParkAlerts id="alert-content" data={alert} /> */}
           </Container>
           <Container id="description">
             <h3>Description:</h3>
@@ -77,28 +95,19 @@ const Park = () => {
           </Container>
         </Col>
         <Col id="act" md={6}>
-          <Row md={2}>
-            {info.activities.map((entry) => (
-              <Col className='actCol'>
-                <Card className='actCard'>
+          <Masonry columnsCount={3} gutter='5px'>
+            {info.activities.map((entry, i) => (
+                <Card key={i} className='actCard'>
                   <Card.Body>{entry.name}</Card.Body>
                 </Card>
-              </Col>
-            ))}
-          </Row>
+              ))}
+          </Masonry>
         </Col>
       </Row>
       <Container id="info-tabs">
         <Tabs defaultActiveKey="alert" fill id="tabs">
           <Tab className='tabContent' eventKey="alert" title="Alerts">
-            {alert.map((entry) => (
-              <div id="alert">
-                <Row><Col md={6} sm={8}><h3>{entry.title}</h3></Col><Col><h4><em>{entry.category}</em></h4></Col></Row>
-                <p>{entry.description}</p>
-                {entry.lastIndexedDate}
-                <hr/>
-              </div>
-            ))}
+            {isAlert()}
           </Tab>
           <Tab className="tabContent" eventKey="contact" title="Contact Info">
             <Row>
@@ -124,17 +133,6 @@ const Park = () => {
           <Tab className="tabContent" eventKey="weather" title="Weather">
             <p>{info.weatherInfo}</p>
           </Tab>
-          {/* <Tab className="tabContent" eventKey="activities" title="Activities">
-            <Row md={3}>
-              {info.activities.map((entry) => (
-                <Col>
-                  <Card className='actCard'>
-                    <Card.Body>{entry.name}</Card.Body>
-                  </Card>
-                </Col>
-                ))}
-            </Row>
-          </Tab> */}
           <Tab className="tabContent" eventKey="fees" title="Fees/Parking">
             {showFees()}
           </Tab>

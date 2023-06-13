@@ -20,7 +20,7 @@ const HoursControl = (data) => {
   }
 
   return (
-    <div>
+    <div className="hrs-ctr">
       <h4>{info.name}</h4>
       <p>{info.description}</p>
       <HoursDisplay type={info.standardHours} />

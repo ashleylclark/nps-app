@@ -1,5 +1,8 @@
 #hour-pg {
   background-color: #F2E3DB;
+  background-size: cover;
+  min-height: 100%;
+  position: absolute;
 }
 
 #hour-nav {
@@ -21,4 +24,5 @@
 #hr-table{
   max-width: 400px;
   font-size: 1.2em;
+  border: #6F5C4F;
 }

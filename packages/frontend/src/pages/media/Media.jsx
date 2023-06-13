@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Loading from '../../components/loading/Loading';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 const Media = () => {
   const location = useLocation();
@@ -34,15 +35,13 @@ const Media = () => {
   const checkContraints = (g) => {
     if (g.constraintsInfo.constraint === "Public domain") {
       return (
-        <Row>
-          <Col xs={4}>
-            <img src={g.images[0].url} alt={g.images[0].altText} style={{height:200}}/>
-          </Col>
-          <Col>
-            <a href={g.url}>{g.title}</a>
-            <p>{g.description}</p>
-          </Col>
-        </Row>
+        <Card>
+          <Card.Img variant='top' src={g.images[0].url} alt={g.images[0].altText} />
+          <Card.Body>
+            <Card.Title><a href={g.url}>{g.title}</a></Card.Title>
+            <Card.Text>{g.description}</Card.Text>
+          </Card.Body>
+        </Card>
       )
     }
   }
@@ -50,7 +49,8 @@ const Media = () => {
   const isImage = (web) => {
     if (web.images.length) {
       return (
-        <img src={web.images[0].url} alt={web.images[0].altText} style={{height:200}}/>
+        <Card.Img src={web.images[0].url} alt={web.images[0].altText} />
+        // <img src={web.images[0].url} alt={web.images[0].altText} style={{height:200}}/>
       );
     }
   }
@@ -63,30 +63,36 @@ const Media = () => {
         </Container>
       </Navbar>
       <h2>Galleries</h2>
-      {img.map((gall) => (
-        <>{checkContraints(gall)}</>
-      ))}
+      <Masonry columnsCount={4} gutter='10px'>
+        {img.map((gall) => (
+          <>{checkContraints(gall)}</>
+        ))}
+      </Masonry>
       <hr></hr>
       <h2>Webcams</h2>
-      <Row md={3}>
+      <Masonry columnsCount={4} gutter='10px'>
         {cam.map((wb) => (
-          <Col>
-            <a href={wb.url}>{wb.title}</a>
-            <p>{wb.description}</p>
+          <Card>
+            <Card.Body>
+              <Card.Title><a href={wb.url}>{wb.title}</a></Card.Title>
+              <Card.Text>{wb.description}</Card.Text>
+            </Card.Body>
             {isImage(wb)}
-          </Col>
+          </Card>
         ))}
-      </Row>
+      </Masonry>
       <hr></hr>
       <h2>Videos</h2>
-      <Row md={3}>
+      <Masonry columnsCount={4} gutter='10px'>
         {vid.map((v) => (
-          <Col>
-            <a href={v.permalinkUrl}>{v.title}</a>
-            <p>{v.description}</p>
-          </Col>
+          <Card>
+            <Card.Body>
+              <Card.Title><a href={v.permalinkUrl}>{v.title}</a></Card.Title>
+              <Card.Text>{v.description}</Card.Text>
+            </Card.Body>
+          </Card>
         ))}
-      </Row>
+      </Masonry>
     </div>
   );
 }

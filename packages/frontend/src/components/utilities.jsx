@@ -19,3 +19,11 @@ export function get_ids(arr, vals) {
   }
   return res;
 }
+
+export function format_date(date) {
+  let d = date.split(' ');
+  let newD = d[0].split('-');
+  let time = d[1].substring(0,5);
+  let newDate = `${newD[1]}-${newD[2]}-${newD[0]}`
+  return (<>{newDate}&nbsp;&nbsp;{time}</>);
+}

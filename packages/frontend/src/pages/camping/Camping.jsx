@@ -39,13 +39,13 @@ const Camping = () => {
         </Container>
       </Navbar>
       <Tabs defaultActiveKey={info[0].name}>
-        {info.map((entry) => (
-          <Tab className='tabContent' eventKey={entry.name} title={entry.name}>
+        {info.map((entry, i) => (
+          <Tab className='tabContent' eventKey={entry.name} title={entry.name} key={i}>
             <p className='camp-p'>{entry.description}</p>
             <h3 className='c-headers'>Hours</h3>
             <Row md={2}>
-              {entry.operatingHours.map((ent) => (
-                <Col className='c-hrs'>
+              {entry.operatingHours.map((ent, i) => (
+                <Col className='c-hrs' key={i}>
                   <HoursControl data={ent} />
                 </Col>
               ))}
@@ -60,7 +60,7 @@ const Camping = () => {
                 <a id='mkres' href={entry.reservationUrl}>Make a Reservation</a></Col>
             </Row>
             <h3 className='c-headers'>Fees</h3>
-            <Table id='c-fees'>
+            <Table id='c-fees' bordered>
               <thead>
                 <tr>
                   <th>Fee</th>
@@ -69,8 +69,8 @@ const Camping = () => {
                 </tr>
               </thead>
               <tbody>
-                {entry.fees.map((f) => (
-                  <tr>
+                {entry.fees.map((f, i) => (
+                  <tr key={i}>
                     <td>{f.title}</td>
                     <td>${f.cost}</td>
                     <td>{f.description}</td>

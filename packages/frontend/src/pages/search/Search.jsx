@@ -188,7 +188,7 @@ const Search = () => {
           <option value="activities">Activities</option>
         </Form.Control>
         {form && showForm(type)}
-        <Button variant='outline-dark' onClick={handleClick}>Go</Button>
+        <Button id='search-btn' variant='outline-dark' onClick={handleClick}>Go</Button>
         {isShown && <Results props={selection} />}
       </Container>
     </div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import "./park.css";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import ParkAlerts from "../../components/alert/Alert";
+// import ParkAlerts from "../../components/alert/Alert";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Nav from 'react-bootstrap/Nav';
@@ -14,6 +14,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import Loading from '../../components/loading/Loading';
 import Fees from '../../components/fees';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { format_date } from '../../components/utilities';
 
 const Park = () => {
   let params = useParams();
@@ -48,11 +49,11 @@ const Park = () => {
     if (alert.length) {
       return (
         <>
-        {alert.map((entry) => (
-          <div className="alert">
+        {alert.map((entry, i) => (
+          <div className="alrt" key={i}>
             <Row><Col md={6} sm={8}><h3>{entry.title}</h3></Col><Col><h4><em>{entry.category}</em></h4></Col></Row>
             <p>{entry.description}</p>
-            {entry.lastIndexedDate}
+            {format_date(entry.lastIndexedDate)}
             <hr/>
           </div>
         ))}
@@ -111,10 +112,10 @@ const Park = () => {
           </Tab>
           <Tab className="tabContent" eventKey="contact" title="Contact Info">
             <Row>
-              <Col>
+              <Col md={4}>
                 <h3>Phone:</h3>
-                {info.contacts.phoneNumbers.map((entry) => (
-                  <div>
+                {info.contacts.phoneNumbers.map((entry, i) => (
+                  <div key={i}>
                     <h4>{entry.type}:</h4>
                     <p>{entry.phoneNumber}</p>
                   </div>
@@ -122,10 +123,8 @@ const Park = () => {
               </Col>
               <Col>
                 <h3>Email:</h3>
-                {info.contacts.emailAddresses.map((entry) => (
-                  <div>
-                    <p>{entry.emailAddress}</p>
-                  </div>
+                {info.contacts.emailAddresses.map((entry, i) => (
+                  <p key={i}>{entry.emailAddress}</p>
                 ))}
               </Col>
             </Row>

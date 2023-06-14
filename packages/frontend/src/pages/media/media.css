@@ -1,3 +1,19 @@
-/* .img-card {
-  max-width: 400px;
-} */
+#media-pg {
+  font-family: 'Raleway', sans-serif;
+}
+
+.m-head {
+  color: #F2E3DB;
+  padding-left: 20px;
+  margin-top: 30px;
+  font-size: 2.5rem;
+  font-weight: 550;
+}
+
+.img-tiles {
+  padding: 20px;
+}
+
+.tile-a {
+  color: black;
+}

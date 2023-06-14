@@ -24,11 +24,11 @@ const AmenityTable = (data) => {
           </tr>
           <tr>
             <td>Toilets</td>
-            <td>{info.toilets.map((t) => (<div>{t}</div>))}</td>
+            <td>{info.toilets.map((t, i) => (<div key={i}>{t}</div>))}</td>
           </tr>
           <tr>
             <td>Showers</td>
-            <td>{info.showers.map((t) => (<div>{t}</div>))}</td>
+            <td>{info.showers.map((t, i) => (<div key={i}>{t}</div>))}</td>
           </tr>
           <tr>
             <td>Internet</td>
@@ -56,7 +56,7 @@ const AmenityTable = (data) => {
           </tr>
           <tr>
             <td>Potable Water</td>
-            <td>{info.potableWater.map((t) => (<div>{t}</div>))}</td>
+            <td>{info.potableWater.map((t, i) => (<div key={i}>{t}</div>))}</td>
           </tr>
           <tr>
             <td>Ice for Sale</td>

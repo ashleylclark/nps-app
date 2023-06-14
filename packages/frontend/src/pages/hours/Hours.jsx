@@ -9,8 +9,6 @@ import Col from 'react-bootstrap/Col';
 const Hours = () => {
   const location = useLocation();
   const hoursInfo = location.state.opHours;
-  // console.log(location, " useLocation Hook");
-  console.log(hoursInfo);
 
   return (
     <div id='hour-pg'>
@@ -21,8 +19,8 @@ const Hours = () => {
       </Navbar>
       <h1 id="title">Operating Hours</h1>
       <Row id='hr-list' lg={2} sm={1}>
-        {hoursInfo.map((ent) => (
-          <Col className='hrs'>
+        {hoursInfo.map((ent, i) => (
+          <Col className='hrs' key={i}>
             <HoursControl data={ent} />
           </Col>
         ))}

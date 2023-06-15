@@ -8,7 +8,7 @@ const HoursControl = (data) => {
       return (
         <div>
           {info.exceptions.map((ent, i) => (
-            <div key={i}>
+            <div className="hrs-ctr" key={i}>
               <h5>{ent.name}</h5>
               <p>Start Date: {ent.startDate}&emsp;End Date: {ent.endDate}</p>
               <HoursDisplay type={ent.exceptionHours} />

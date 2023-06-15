@@ -46,9 +46,6 @@ const Search = () => {
   const [selection, setSelection] = useState({});
   const navigate = useNavigate();
 
-  const [pa, setPa] = useState([]);
-  const [info, setInfo] = useState([]);
-
   function isObjEmpty (obj) {
     return Object.keys(obj).length == 0;
   }
@@ -128,11 +125,7 @@ const Search = () => {
 
   const handleClick = e => {
     if (!isObjEmpty(parkSelection)) {
-      console.log(`park chosen: ${parkSelection}`);
-      console.log(parks);
       let result = get_key(parks, parkSelection[0])
-      console.log(result);
-      // FetchData("park", parkSelection);
       navigate(`${result}`);
     }
 
@@ -150,7 +143,6 @@ const Search = () => {
 
     else if (!isObjEmpty(actSelection)) {
       // convert list of activites to list of ids
-      console.log(actSelection);
       let result = get_ids(activities, actSelection);
 
       fetch(`${import.meta.env.VITE_API_BASE_URL}/act/${result}`)
@@ -168,8 +160,12 @@ const Search = () => {
   return loading ? <Loading /> : (
     <div id='search-page'>
       <Navbar id='searchNav'>
-        <Container>
-          <Navbar.Brand href="/">Search</Navbar.Brand>
+        <Container className='nav-container'>
+          <Navbar.Brand href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          </Navbar.Brand>
         </Container>
       </Navbar>
       <Container id="park-search" className='text-center'>

@@ -13,28 +13,36 @@
   margin-top: 20px;
 }
 
-.c-hrs {
-  margin-bottom: 20px;
+.camp-hrs {
+  padding-left: 10px;
+}
+
+#hr-table {
+  margin-bottom: 30px;
 }
 
 #reserv {
   max-width: 700px;
+  padding-left: 10px;
 }
 
 #mkres {
   font-size: 1.3rem;
   color: #6a5b52;
+  padding-left: 10px;
 }
 
 #amenities {
   /* max-width: 600px; */
   font-size: 1.3rem;
   border: #F2E3DB;
+  margin-left: 8px;
 }
 
 #c-fees {
   font-size: 1.3rem;
   border: #d0c2b8;
+  /* margin-left: 10px; */
 }
 
 #campsites {
@@ -47,6 +55,10 @@
 
 #add-info {
   padding-left: 10px;
+}
+
+#add-info .camp-p {
+  padding-left: 0px;
 }
 
 .camp-li {

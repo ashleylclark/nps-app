@@ -14,6 +14,10 @@ app.use(cors());
 app.use(express.json());
 
 
+app.get('/', (req, res) => {
+  res.send('OK');
+})
+
 // park: info aboout park (use: parkCode)
 
 app.get('/park/:pkId', async (req, res) => {

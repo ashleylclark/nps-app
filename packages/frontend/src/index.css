@@ -10,3 +10,7 @@ body {
   background-attachment: fixed;
   position: relative;
 }
+
+#root {
+  min-height: 100vh;
+}

@@ -2,6 +2,7 @@
   background-color: #88AA78;
   background-size: cover;
   font-family: 'Raleway', sans-serif;
+  min-height: 100vh;
 }
 
 #park-nav {

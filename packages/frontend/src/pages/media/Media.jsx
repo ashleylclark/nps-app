@@ -29,17 +29,20 @@ const Media = () => {
     fetchMedia().then(() => setLoading(false));
   }, []);
 
-  // check if images are public domain
+  // check if images are public domain and display
   const checkContraints = (g) => {
     if (g.constraintsInfo.constraint === "Public domain") {
       return (
-        <Card className='m-card'>
+        // <div className='container'>
+        <Card className='m-card ovContainer'>
           <Card.Img variant='top' src={g.images[0].url} alt={g.images[0].altText} />
-          <Card.Body>
+          {/* <Card.Body>
             <Card.Title><a className='tile-a' href={g.url}>{g.title}</a></Card.Title>
             <Card.Text>{g.description}</Card.Text>
-          </Card.Body>
+          </Card.Body> */}
+          <div className='overlay'><a className='tile-a' href={g.url}>{g.title}</a></div>
         </Card>
+        // </div>
       )
     }
   }
@@ -57,7 +60,7 @@ const Media = () => {
       <Navbar id='park-nav'>
         <Container className='nav-container'>
           <Navbar.Brand href="/">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
             </svg>
           </Navbar.Brand>
@@ -71,9 +74,9 @@ const Media = () => {
         </Container>
       </Navbar>
       <h2 className='m-head'>Galleries</h2>
-      <Masonry className='img-tiles' columnsCount={4} gutter='20px'>
+      <Masonry className='img-tiles' columnsCount={5} gutter='20px'>
         {img.map((gall, i) => (
-          <div key={i}>{checkContraints(gall)}</div>
+          <div key={i} className='img-gal'>{checkContraints(gall)}</div>
         ))}
       </Masonry>
       <h2 className='m-head'>Webcams</h2>

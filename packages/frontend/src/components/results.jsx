@@ -3,7 +3,21 @@ import Container from 'react-bootstrap/Container';
 
 const Results = (props) => {
   props = props.props;
-  // map .choice????
+
+  const checkResults = (res) => {
+    if (Object.keys(res).length === 0) {
+      return (<p>No Results</p>)
+    } else {
+      return (
+        <Nav className='flex-column'>
+        {Object.keys(res).map((p) => (
+          <Nav.Link href={p} className='resLink'>{res[p]}</Nav.Link>
+        ))}
+      </Nav>
+      )
+    }
+  }
+
   return(
     <Container id='res'>
       <h3>Results for {props.choice.map((n) => (
@@ -11,11 +25,7 @@ const Results = (props) => {
           "{n}"&nbsp;
         </>
       ))}</h3>
-      <Nav className='flex-column'>
-        {Object.keys(props.info).map((p) => (
-          <Nav.Link href={p} className='resLink'>{props.info[p]}</Nav.Link>
-        ))}
-      </Nav>
+      {checkResults(props.info)}
     </Container>
   );
 }

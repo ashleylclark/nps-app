@@ -1,6 +1,45 @@
 #camp-pg {
-  background-color: #9a887c;
+  background-color: black;
   font-family: 'Raleway', sans-serif;
+}
+
+#camp-cont {
+  max-width: 100%;
+  margin: 0;
+}
+
+#camp-nav {
+  background-color: #ecdbd2;
+  padding: 0;
+}
+
+.cust-tab {
+  color: black;
+  font-weight: 450;
+  /* padding-left: 0;
+  padding-right: 0;
+  margin: 2px 0px 2px 16px; */
+  padding: 24px 16px 24px 16px;
+}
+
+.cust-tab:hover {
+  color: #785b49;
+}
+
+.cust-tab.active {
+  /* color: #5c5048; */
+  /* color: #ecdbd2; */
+  /* background-color: #5c5048; */
+  color: #4b3629;
+  background-color: #F2E3DB;
+  border-left: 6px solid #5a4334;
+  /* border-bottom: 2px solid #5c5048 !important;
+  border-radius: 0px !important; */
+}
+
+#camp-pane {
+  background-color: #F2E3DB;
+  /* padding: 0; */
 }
 
 .camp-p {

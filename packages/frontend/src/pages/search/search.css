@@ -64,6 +64,7 @@ form {
   margin-top: 30px;
   background-color: #263a2980;
   color: rgba(242, 227, 219);
+  border: none;
 }
 
 #search-btn:hover {

@@ -179,7 +179,7 @@ const Search = () => {
             setForm(true);
           }}>
           <option value="na">Choose a search method</option>
-          <option value="park">Park</option>
+          <option value="park">Park Name</option>
           <option value="state">State</option>
           <option value="activities">Activities</option>
         </Form.Control>

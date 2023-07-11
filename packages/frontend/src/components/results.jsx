@@ -3,6 +3,13 @@ import Container from 'react-bootstrap/Container';
 
 const Results = (props) => {
   props = props.props;
+  let filters = [];
+  for (var item in props.choice.stateSelection) {
+    filters.push(props.choice.stateSelection[item]);
+  }
+  for (var item in props.choice.actSelection) {
+    filters.push(props.choice.actSelection[item]);
+  }
 
   const checkResults = (res) => {
     if (Object.keys(res).length === 0) {
@@ -10,8 +17,8 @@ const Results = (props) => {
     } else {
       return (
         <Nav className='flex-column'>
-        {Object.keys(res).map((p) => (
-          <Nav.Link href={p} className='resLink'>{res[p]}</Nav.Link>
+        {res.map((p) => (
+          <Nav.Link href={p.parkCode} className='resLink'>{p.fullName}</Nav.Link>
         ))}
       </Nav>
       )
@@ -20,7 +27,7 @@ const Results = (props) => {
 
   return(
     <Container id='res'>
-      <h3>Results for {props.choice.map((n) => (
+      <h3>Results for {filters.map((n) => (
         <>
           "{n}"&nbsp;
         </>

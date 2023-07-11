@@ -8,7 +8,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead.bs5.css';
 import "./search.css";
-import { get_ids } from "../../components/utilities"
+import { get_ids, get_keys } from "../../components/utilities"
 import Results from '../../components/results';
 import { useNavigate } from 'react-router-dom';
 // import { fetch_data } from '../../components/utilities';
@@ -95,40 +95,58 @@ const Search = () => {
           selected={parkSelection}
         />
       );
-    } else if (value === "state") {
+    } else if (value === "state_activities") {
       return (
-        <Typeahead
-          className='type-search'
-          id='by-state'
-          labelKey="name"
-          onChange={setStateSelection}
-          options={stateNames}
-          placeholder='Choose a state...'
-          selected={stateSelection}
-        />
+        <div id='filters'>
+          <p>By State</p>
+          <Typeahead
+            className='type-search'
+            id='by-state'
+            labelKey="name"
+            multiple
+            onChange={setStateSelection}
+            options={stateNames}
+            placeholder='Choose a state...'
+            selected={stateSelection}
+          />
+          <p>By Activity</p>
+          <Typeahead
+            className='type-search'
+            id='by-activitiy'
+            labelKey="name"
+            multiple
+            onChange={setActSelection}
+            options={actNames}
+            placeholder='Choose activities...'
+            selected={actSelection}
+          />
+        </div>
       );
-    } else if (value === "activities") {
-      return (
-        <Typeahead
-          className='type-search'
-          id='by-activitiy'
-          labelKey="name"
-          multiple
-          onChange={setActSelection}
-          options={actNames}
-          placeholder='Choose activities...'
-          selected={actSelection}
-        />
-      )
     }
   }
 
-  const handleClick = e => {
+  const handleClick = () => {
     if (!isObjEmpty(parkSelection)) {
       let result = get_key(parks, parkSelection[0])
       navigate(`${result}`);
     }
 
+    // states/activities
+    else {
+      let stateResult = get_keys(states, stateSelection);
+      let activityResult = get_ids(activities, actSelection);
+      console.log(stateResult);
+      console.log(activityResult);
+
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/parks-filtered?states=${stateResult}&activities=${activityResult}`)
+        .then(response => response.json())
+        .then(data => {
+          setIsShown(true);
+          setSelection({choice: { stateSelection, actSelection }, info: data});
+        });
+      // console.log(selection);
+    }
+    /*
     else if (!isObjEmpty(stateSelection)) {
       // convert to code
       let result = get_key(states, stateSelection[0]);
@@ -155,6 +173,7 @@ const Search = () => {
     else {
       console.log("no option chosen");
     }
+    */
   };
 
   return loading ? <Loading /> : (
@@ -180,8 +199,7 @@ const Search = () => {
           }}>
           <option value="na">Choose a search method</option>
           <option value="park">Park Name</option>
-          <option value="state">State</option>
-          <option value="activities">Activities</option>
+          <option value="state_activities">State/Activities</option>
         </Form.Control>
         {form && showForm(type)}
         <Button id='search-btn' variant='outline-dark' onClick={handleClick}>Go</Button>

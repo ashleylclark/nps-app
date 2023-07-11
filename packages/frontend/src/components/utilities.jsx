@@ -8,6 +8,14 @@ export function get_key(obj, val) {
   return Object.keys(obj).find(key => obj[key] === val);
 }
 
+export function get_keys(obj, val) {
+  let res = [];
+  for (var item in val) {
+    res.push(get_key(obj, val[item]));
+  }
+  return res;
+}
+
 export function get_ids(arr, vals) {
   let res = [];
   for (let i = 0; i < vals.length; i++) {

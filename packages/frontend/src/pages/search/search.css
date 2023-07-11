@@ -51,6 +51,18 @@ form {
   margin-top: 20px;
 }
 
+#filters {
+  margin-top: 20px;
+}
+
+#filters p {
+  margin: 20px 0 10px 0;
+}
+
+#filters .type-search {
+  margin: 0;
+}
+
 #res {
   margin-top: 5%;
 }

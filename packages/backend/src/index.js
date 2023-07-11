@@ -2,13 +2,13 @@
 import { getData } from './getData.js';
 import express from 'express';
 import cors from 'cors';
-
+import _ from 'lodash';
 import { stateCodes } from './conversion.js';
+import { getParksByActivity, getParksByState } from './filter.js';
 
 // defining express app
 const app = express();
 
-// app.use(express.urlencoded()); // Parese URL-encoded bodies
 
 app.use(cors());
 app.use(express.json());
@@ -22,11 +22,42 @@ app.get('/', (req, res) => {
 
 app.get('/park/:pkId', async (req, res) => {
   req.params;
-  // console.log(req.params.pkId);
   let data = await getData('parks', { parkCode: req.params.pkId });
-  // console.log(data);
   res.json(data);
 })
+
+// parks: park info using filters
+app.get('/parks-filtered', async (req, res) => {
+  const states = req.query.states;
+  // console.log(states);
+  const activities = req.query.activities;
+  // console.log(activities);
+  let parks = [];
+
+  // states and activities
+  if (states && activities) {
+    // get parks by states and by activities
+    const parksByState = await getParksByState(states);
+    const parksByActivity = await getParksByActivity(activities);
+    parks = _.intersectionBy(parksByState, parksByActivity, 'parkCode');
+  }
+  // states and no activities
+  else if (states && !activities) {
+    // get parks by states
+    parks = await getParksByState(states);
+  }
+  // activities and no states
+  else if (!states && activities) {
+    // get parks by activities
+    parks = await getParksByActivity(activities);
+  }
+  // no states and no activities (all parks)
+  else {
+    // get all parks
+    parks = await getParksByState();
+  }
+  res.json(parks);
+});
 
 
 // parks: park names and park codes (use: stateCode or nothing)
@@ -70,7 +101,7 @@ app.get('/act', async (req, res) => {
 })
 
 
-// act/parks: get list of park names and codes by activites
+// act/parks: get list of park names and codes by activities
 
 app.get('/act/:aId', async (req, res) => {
   req.params;

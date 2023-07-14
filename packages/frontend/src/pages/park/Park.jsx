@@ -68,7 +68,7 @@ const Park = () => {
 
   return loading ? <Loading /> : (
     <div id="park-page">
-      <Navbar id='park-nav' sticky='top'>
+      <Navbar id='park-nav' fixed='top'>
         <Container className='nav-container'>
           <Navbar.Brand href="/">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

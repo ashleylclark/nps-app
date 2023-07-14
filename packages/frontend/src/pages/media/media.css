@@ -1,5 +1,10 @@
 #media-pg {
   font-family: 'Raleway', sans-serif;
+  margin-top: 84px;
+}
+
+#media-nav {
+  background: #2f4834;
 }
 
 .m-head {
@@ -12,11 +17,84 @@
 
 .img-tiles {
   padding: 20px;
+  /* min-width: 800px; */
 }
 
-/* .img-gal {
-  max-width: 200px;
-} */
+@media screen and (min-width: 601px) {
+  .gallery-sm {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+  .gallery-xs {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .gallery-md {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+  .gallery-xs {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .gallery-sm {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+  .gallery-xs {
+    height: auto;
+    padding: 20px;
+  }
+}
+
+@media screen and (min-width: 801px) {
+  .media-sm {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+  .media-xs {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .media-md {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+  .media-xs {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .media-sm {
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+  }
+  .media-xs {
+    height: auto;
+    padding: 20px;
+  }
+}
 
 .ovContainer {
   position: relative;
@@ -49,6 +127,8 @@
 
 .m-card {
   background-color: #f7ece7b1;
+  max-height: 500px;
+  overflow-y: scroll;
 }
 
 .tile-a {

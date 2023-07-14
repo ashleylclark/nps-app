@@ -14,19 +14,48 @@
 #park-search {
   background: rgba(242, 227, 219, 0.5);
   position:absolute;
-  top: 25%;
-  left: 25%;
-  padding: 4em;
-  width: 50%;
+  /* top: 25%;
+  left: 25%; */
+  /* padding: 4em; */
+  padding: 4%;
+  /* width: 50%; */
   margin-bottom: 20px;
 }
 
-h2 {
-  font-size: 2.2em;
+@media screen and (min-width: 601px) {
+  h2 {
+    font-size: 2.2em;
+  }
+  p {
+    font-size: 1.3em;
+  }
+  #park-search {
+    width: 50%;
+    top: 25%;
+    left: 25%;
+  }
 }
 
-p {
-  font-size: 1.3em;
+@media screen and (max-width: 600px) {
+  h2 {
+    font-size: 1.8em;
+  }
+  p {
+    font-size: 1em;
+  }
+  #park-search {
+    width: 80%;
+    top: 25%;
+    left: 10%;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  #park-search {
+    width: 100%;
+    top: 25%;
+    left: 0;
+  }
 }
 
 form {
@@ -77,6 +106,9 @@ form {
   background-color: #263a2980;
   color: rgba(242, 227, 219);
   border: none;
+  height: 45px;
+  width: 60px;
+  font-size: 1.3em;
 }
 
 #search-btn:hover {

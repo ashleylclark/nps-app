@@ -30,8 +30,8 @@ const Media = () => {
   }, []);
 
   // check if images are public domain and display
-  const checkContraints = (g) => {
-    if (g.constraintsInfo.constraint === "Public domain") {
+  const checkContraints = (g, i) => {
+    if (g.constraintsInfo.constraint === "Public domain" && i < 25) {
       return (
         // <div className='container'>
         <Card className='m-card ovContainer'>
@@ -55,9 +55,44 @@ const Media = () => {
     }
   }
 
+  const displayGallery = (img) => {
+    return (
+      img.map((gall, i) => (
+        <div key={i} className='img-gal'>{checkContraints(gall, i)}</div>
+      ))
+    );
+  }
+
+  const displayWebcams = (cam) => {
+    return (
+      cam.map((wb, i) => (
+        <Card className='m-card' key={i}>
+          <Card.Body>
+            <Card.Title><a className='tile-a' href={wb.url}>{wb.title}</a></Card.Title>
+            <Card.Text>{wb.description}</Card.Text>
+          </Card.Body>
+          {isImage(wb)}
+        </Card>
+      ))
+    );
+  }
+
+  const displayVideos = (vid) => {
+    return (
+      vid.map((v, i) => (
+        <Card className='m-card' key={i}>
+          <Card.Body>
+            <Card.Title><a className='tile-a' href={v.permalinkUrl}>{v.title}</a></Card.Title>
+            <Card.Text>{v.description}</Card.Text>
+          </Card.Body>
+        </Card>
+      ))
+    )
+  }
+
   return loading ? <Loading /> : (
     <div id='media-pg'>
-      <Navbar id='park-nav'>
+      <Navbar id='media-nav' fixed='top'>
         <Container className='nav-container'>
           <Navbar.Brand href="/">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
@@ -74,33 +109,34 @@ const Media = () => {
         </Container>
       </Navbar>
       <h2 className='m-head'>Galleries</h2>
-      <Masonry className='img-tiles' columnsCount={5} gutter='20px'>
-        {img.map((gall, i) => (
-          <div key={i} className='img-gal'>{checkContraints(gall)}</div>
-        ))}
+      <Masonry className='img-tiles gallery-md' columnsCount={5} gutter='20px'>
+        {displayGallery(img)}
+      </Masonry>
+      <Masonry className='img-tiles gallery-sm' columnsCount={3} gutter='20px'>
+        {displayGallery(img)}
+      </Masonry>
+      <Masonry className='img-tiles gallery-xs' columnsCount={1} gutter='20px'>
+        {displayGallery(img)}
       </Masonry>
       <h2 className='m-head'>Webcams</h2>
-      <Masonry className='img-tiles' columnsCount={4} gutter='20px'>
-        {cam.map((wb, i) => (
-          <Card className='m-card' key={i}>
-            <Card.Body>
-              <Card.Title><a className='tile-a' href={wb.url}>{wb.title}</a></Card.Title>
-              <Card.Text>{wb.description}</Card.Text>
-            </Card.Body>
-            {isImage(wb)}
-          </Card>
-        ))}
+      <Masonry className='img-tiles media-md' columnsCount={5} gutter='20px'>
+        {displayWebcams(cam)}
+      </Masonry>
+      <Masonry className='img-tiles media-sm' columnsCount={2} gutter='20px'>
+        {displayWebcams(cam)}
+      </Masonry>
+      <Masonry className='img-tiles media-xs' columnsCount={1} gutter='20px'>
+        {displayWebcams(cam)}
       </Masonry>
       <h2 className='m-head'>Videos</h2>
-      <Masonry className='img-tiles' columnsCount={4} gutter='20px'>
-        {vid.map((v, i) => (
-          <Card className='m-card' key={i}>
-            <Card.Body>
-              <Card.Title><a className='tile-a' href={v.permalinkUrl}>{v.title}</a></Card.Title>
-              <Card.Text>{v.description}</Card.Text>
-            </Card.Body>
-          </Card>
-        ))}
+      <Masonry className='img-tiles media-md' columnsCount={5} gutter='20px'>
+        {displayVideos(vid)}
+      </Masonry>
+      <Masonry className='img-tiles media-sm' columnsCount={2} gutter='20px'>
+        {displayVideos(vid)}
+      </Masonry>
+      <Masonry className='img-tiles media-xs' columnsCount={1} gutter='20px'>
+        {displayVideos(vid)}
       </Masonry>
     </div>
   );

@@ -3,6 +3,7 @@
   background-size: cover;
   font-family: 'Raleway', sans-serif;
   min-height: 100vh;
+  margin-top: 56px;
 }
 
 #park-nav {
@@ -28,7 +29,7 @@
 }
 
 #main{
-  margin-top: 5%;
+  /* margin-top: 5%; */
   margin-bottom: 5%;
   max-width: 100%;
 }
@@ -36,6 +37,7 @@
 #desc {
   padding-left: 5%;
   padding-right: 5%;
+  margin-top: 5%;
 }
 
 #description {
@@ -56,10 +58,31 @@
 #act {
   padding-left: 5%;
   padding-right: 0;
+  margin-top: 5%;
+  max-height: 700px;
+  overflow-y: scroll;
 }
 
 .actCard {
   background-color: #F2E3DB;
+}
+
+@media screen and (max-width: 450px) {
+  .actCard {
+    font-size: .8em;
+  }
+  h3 {
+    font-size: 1.3em;
+  }
+  h4 {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .actCard {
+    font-size: .7em;
+  }
 }
 
 #info-tabs {

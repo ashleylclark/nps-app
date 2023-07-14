@@ -5,6 +5,7 @@
   min-width: 100%;
   position: absolute;
   font-family: 'Raleway', sans-serif;
+  margin-top: 56px;
 }
 
 #hour-nav {

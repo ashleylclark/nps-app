@@ -1,11 +1,12 @@
 #camp-pg {
-  background-color: black;
+  /* background-color: black; */
   font-family: 'Raleway', sans-serif;
+  height: 100%;
 }
 
 #camp-cont {
   max-width: 100%;
-  margin: 0;
+  margin: 56px 0 0 0;
 }
 
 #camp-nav {
@@ -73,13 +74,38 @@
 
 #amenities {
   /* max-width: 600px; */
-  font-size: 1.3rem;
+  /* font-size: 1.3rem; */
   border: #F2E3DB;
   margin-left: 8px;
 }
+@media screen and (min-width: 601px) {
+  #amenities td {
+    font-size: 1.3rem;
+  }
+  #c-fees {
+    font-size: 1.3em;
+  }
+  .camp-li {
+    font-size: 1.3em;
+  }
+}
+@media screen and (max-width: 600px) {
+  #amenities td {
+    font-size: 1em;
+  }
+  #c-fees {
+    font-size: 1em;
+  }
+}
+@media screen and (max-width: 400px) {
+  #camp-pane .tab-content {
+    padding: 0px;
+  }
+}
+
 
 #c-fees {
-  font-size: 1.3rem;
+  /* font-size: 1.3rem; */
   border: #d0c2b8;
   /* margin-left: 10px; */
 }
@@ -100,6 +126,3 @@
   padding-left: 0px;
 }
 
-.camp-li {
-  font-size: 1.3em;
-}

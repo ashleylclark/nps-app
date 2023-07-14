@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import HoursControl from '../../components/hoursControl';
+import { displayNoInfo } from '../../components/noInfo/noInfo';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -7,14 +8,30 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import "./hours.css";
+import '../../components/noInfo/noInfo.css';
 
 const Hours = () => {
   const location = useLocation();
   const hoursInfo = location.state.opHours;
 
+  const checkHours = (info) => {
+    return info.length ? (
+      <div>
+        <h1 id="title">Operating Hours</h1>
+          <Row id='hr-list'>
+            {info.map((ent, i) => (
+              <Col className='hrs' key={i}  md={6} sm={12}>
+                <HoursControl data={ent} />
+              </Col>
+            ))}
+          </Row>
+      </div>
+    ) : displayNoInfo('hours');
+  }
+
   return (
     <div id='hour-pg'>
-      <Navbar id="hour-nav">
+      <Navbar id="hour-nav" fixed='top'>
         <Container className='nav-container'>
           <Navbar.Brand href='/'>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -30,14 +47,7 @@ const Hours = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <h1 id="title">Operating Hours</h1>
-      <Row id='hr-list' lg={2} sm={1}>
-        {hoursInfo.map((ent, i) => (
-          <Col className='hrs' key={i}>
-            <HoursControl data={ent} />
-          </Col>
-        ))}
-      </Row>
+      {checkHours(hoursInfo)}
     </div>
   );
 }

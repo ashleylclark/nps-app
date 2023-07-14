@@ -197,7 +197,7 @@ const Search = () => {
             setType(e.target.value);
             setForm(true);
           }}>
-          <option value="na">Choose a search method</option>
+          <option value="na">Choose a method</option>
           <option value="park">Park Name</option>
           <option value="state_activities">State/Activities</option>
         </Form.Control>

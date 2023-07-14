@@ -1,0 +1,23 @@
+.no_info {
+  height: 200px;
+  width: 300px;
+  background: rgba(242, 227, 219, 0.5);
+  margin: auto;
+  margin-top: 20%;
+  border-radius: 15px;
+}
+
+.bi-emoji-frown {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  top: 30px;
+  left: 125px;
+  color: rgba(33, 37, 41, 0.85);
+}
+
+.no_info p {
+  position: relative;
+  top: 55px;
+  text-align: center;
+}

@@ -129,6 +129,12 @@
   background-color: #f7ece7b1;
   max-height: 500px;
   overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.m-card::-webkit-scrollbar {
+  display: none;
 }
 
 .tile-a {

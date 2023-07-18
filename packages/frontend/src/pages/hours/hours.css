@@ -21,7 +21,15 @@
 }
 
 .hrs {
-  padding-left: 0;
+  padding: 0;
+}
+
+.hrs h4 {
+  margin-top: 8px;
+}
+
+.hrs p {
+  margin-right: 20px;
 }
 
 #hr-table{

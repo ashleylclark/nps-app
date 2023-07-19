@@ -56,6 +56,12 @@
   margin-top: 5%;
   max-height: 700px;
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#act::-webkit-scrollbar {
+  display: none;
 }
 
 .actCard {

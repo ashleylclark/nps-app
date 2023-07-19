@@ -1,6 +1,7 @@
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 
+// check for and display results
 const Results = (props) => {
   props = props.props;
   let filters = [];
@@ -11,6 +12,7 @@ const Results = (props) => {
     filters.push(props.choice.actSelection[item]);
   }
 
+  // check if there are results present
   const checkResults = (res) => {
     if (Object.keys(res).length === 0) {
       return (<p>No Results</p>)

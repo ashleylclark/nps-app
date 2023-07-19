@@ -7,13 +7,16 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
 import "./hours.css";
 import '../../components/noInfo/noInfo.css';
 
+// display park hours if they exist
 const Hours = () => {
   const location = useLocation();
   const hoursInfo = location.state.opHours;
 
+  // check if there are hours to display
   const checkHours = (info) => {
     return info.length ? (
       <div>

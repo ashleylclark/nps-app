@@ -1,10 +1,12 @@
 import { getData } from './getData.js';
 
+// filter parks by state
 export async function getParksByState (states) {
   const res = await getData('parks', { stateCode: states, limit: 1000 });
   return filterParks(res);
 }
 
+// filter parks by activity/activities
 export async function getParksByActivity (activities) {
   let parks = [];
   const res = await getData('activities/parks', { id: activities, limit: 1000 });

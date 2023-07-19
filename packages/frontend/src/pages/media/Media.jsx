@@ -1,24 +1,27 @@
 import { useState, useEffect } from 'react';
-import "./media.css";
 import { useLocation, Link } from 'react-router-dom';
+import Masonry from 'react-responsive-masonry';
+import Loading from '../../components/loading/Loading';
+
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
-import Loading from '../../components/loading/Loading';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import "./media.css";
 
+// display galleries, webcams, and videos for park
 const Media = () => {
   const location = useLocation();
-  const pid = location.state.code;
+  const parkId = location.state.code;
 
   const [img, setImg] = useState();
   const [cam, setCam] = useState();
   const [vid, setVid] = useState();
   const [loading, setLoading] = useState(true);
 
+  // get media info from backend
   const fetchMedia = async () => {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/media/${pid}`);
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/media/${parkId}`);
     const data = await response.json();
     setImg(data[0]);
     setCam(data[1]);
@@ -33,28 +36,24 @@ const Media = () => {
   const checkContraints = (g, i) => {
     if (g.constraintsInfo.constraint === "Public domain" && i < 25) {
       return (
-        // <div className='container'>
         <Card className='m-card ovContainer'>
           <Card.Img variant='top' src={g.images[0].url} alt={g.images[0].altText} />
-          {/* <Card.Body>
-            <Card.Title><a className='tile-a' href={g.url}>{g.title}</a></Card.Title>
-            <Card.Text>{g.description}</Card.Text>
-          </Card.Body> */}
           <div className='overlay'><a className='tile-a' href={g.url}>{g.title}</a></div>
         </Card>
-        // </div>
       )
     }
   }
 
-  const isImage = (web) => {
-    if (web.images.length) {
+  // display cover image for webcam if there is one
+  const isImage = (webcam) => {
+    if (webcam.images.length) {
       return (
-        <Card.Img src={web.images[0].url} alt={web.images[0].altText} />
+        <Card.Img src={webcam.images[0].url} alt={webcam.images[0].altText} />
       );
     }
   }
 
+  // display gallery cover images for each gallery
   const displayGallery = (img) => {
     return (
       img.map((gall, i) => (
@@ -63,33 +62,36 @@ const Media = () => {
     );
   }
 
-  const displayWebcams = (cam) => {
+  // display info for each webcam
+  const displayWebcams = (webcam) => {
     return (
-      cam.map((wb, i) => (
+      webcam.map((wc, i) => (
         <Card className='m-card' key={i}>
           <Card.Body>
-            <Card.Title><a className='tile-a' href={wb.url}>{wb.title}</a></Card.Title>
-            <Card.Text>{wb.description}</Card.Text>
+            <Card.Title><a className='tile-a' href={wc.url}>{wc.title}</a></Card.Title>
+            <Card.Text>{wc.description}</Card.Text>
           </Card.Body>
-          {isImage(wb)}
+          {isImage(wc)}
         </Card>
       ))
     );
   }
 
+  // display info for each video
   const displayVideos = (vid) => {
     return (
-      vid.map((v, i) => (
+      vid.map((video, i) => (
         <Card className='m-card' key={i}>
           <Card.Body>
-            <Card.Title><a className='tile-a' href={v.permalinkUrl}>{v.title}</a></Card.Title>
-            <Card.Text>{v.description}</Card.Text>
+            <Card.Title><a className='tile-a' href={video.permalinkUrl}>{video.title}</a></Card.Title>
+            <Card.Text>{video.description}</Card.Text>
           </Card.Body>
         </Card>
       ))
-    )
+    );
   }
 
+  // display media info (three sections for each type for responsive display)
   return loading ? <Loading /> : (
     <div id='media-pg'>
       <Navbar id='media-nav' fixed='top'>

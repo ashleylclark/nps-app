@@ -1,5 +1,6 @@
 import Table from 'react-bootstrap/Table';
 
+// display hours
 const HoursDisplay = (type) => {
   let days = type.type;
 

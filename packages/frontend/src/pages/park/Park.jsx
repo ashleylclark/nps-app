@@ -15,44 +15,47 @@ import Card from 'react-bootstrap/Card';
 import Masonry from 'react-responsive-masonry';
 import "./park.css";
 
+// display info for park
 const Park = () => {
   let params = useParams();
 
   const [info, setInfo] = useState();
   const [loading, setLoading] = useState(true);
-
   const [alert, setAlert ] = useState({});
 
+  // get park and alert info from backend
   const fetchPark = async () => {
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/park/${params.id}`);
     const data = await response.json();
     setInfo(data[0]);
 
-    const alertRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/alert/${params.id}`);
-    const aData = await alertRes.json();
-    setAlert(aData);
-  };
+    const alertResult = await fetch(`${import.meta.env.VITE_API_BASE_URL}/alert/${params.id}`);
+    const alertData = await alertResult.json();
+    setAlert(alertData);
+  }
 
+  // display fees if they exist
   const showFees = () => {
     if (!info.entranceFees.length && !info.entrancePasses.length) {
       return (<p>No Entrance fees or passes.</p>);
     } else {
       return (<Fees data={{fees: info.entranceFees, passes:info.entrancePasses}}/>);
     }
-  };
+  }
 
+  // display alert(s) if they exist
   const isAlert = () => {
     if (alert.length) {
       return (
         <>
-        {alert.map((entry, i) => (
-          <div className="alrt" key={i}>
-            <Row><Col md={6} sm={8}><h3>{entry.title}</h3></Col><Col><h4><em>{entry.category}</em></h4></Col></Row>
-            <p>{entry.description}</p>
-            {format_date(entry.lastIndexedDate)}
-            <hr/>
-          </div>
-        ))}
+          {alert.map((entry, i) => (
+            <div className="alrt" key={i}>
+              <Row><Col md={6} sm={8}><h3>{entry.title}</h3></Col><Col><h4><em>{entry.category}</em></h4></Col></Row>
+              <p>{entry.description}</p>
+              {format_date(entry.lastIndexedDate)}
+              <hr/>
+            </div>
+          ))}
         </>
       );
     } else {
@@ -66,6 +69,7 @@ const Park = () => {
     fetchPark().then(() => setLoading(false))
   }, []);
 
+  // display park info
   return loading ? <Loading /> : (
     <div id="park-page">
       <Navbar id='park-nav' fixed='top'>

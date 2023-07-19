@@ -1,5 +1,6 @@
 import Table from 'react-bootstrap/Table';
 
+// display fees
 const Fees = (info) => {
   info = info.data;
   return (

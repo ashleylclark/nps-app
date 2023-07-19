@@ -1,5 +1,6 @@
 import Table from 'react-bootstrap/Table';
 
+// display amenity table
 const AmenityTable = (data) => {
   let info = data.data;
 

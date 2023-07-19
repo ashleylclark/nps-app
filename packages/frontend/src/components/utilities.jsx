@@ -1,13 +1,18 @@
+// utility functions
+
+// fetch data from backend
 export const fetch_data = async (stateCode) => {
   const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/parks/${stateCode}`)
   const data = await res.json();
   return data;
 }
 
+// get key of object
 export function get_key(obj, val) {
   return Object.keys(obj).find(key => obj[key] === val);
 }
 
+// get all keys of object
 export function get_keys(obj, val) {
   let res = [];
   for (var item in val) {
@@ -16,6 +21,7 @@ export function get_keys(obj, val) {
   return res;
 }
 
+// get list of ids from an array
 export function get_ids(arr, vals) {
   let res = [];
   for (let i = 0; i < vals.length; i++) {
@@ -28,6 +34,7 @@ export function get_ids(arr, vals) {
   return res;
 }
 
+// format date to MM-DD-YYYY, and time to standard
 export function format_date(date) {
   let d = date.split(' ');
   let newD = d[0].split('-');

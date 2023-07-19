@@ -1,5 +1,6 @@
 import HoursDisplay from "./hoursDisplay";
 
+// check hours for exceptions and display
 const HoursControl = (data) => {
   let info = data.data;
 
@@ -7,11 +8,11 @@ const HoursControl = (data) => {
     if (info.exceptions.length !== 0) {
       return (
         <div>
-          {info.exceptions.map((ent, i) => (
+          {info.exceptions.map((entry, i) => (
             <div className="hrs-ctr" key={i}>
-              <h5>{ent.name}</h5>
-              <p>Start Date: {ent.startDate}&emsp;End Date: {ent.endDate}</p>
-              <HoursDisplay type={ent.exceptionHours} />
+              <h5>{entry.name}</h5>
+              <p>Start Date: {entry.startDate}&emsp;End Date: {entry.endDate}</p>
+              <HoursDisplay type={entry.exceptionHours} />
             </div>
           ))}
         </div>
@@ -27,6 +28,6 @@ const HoursControl = (data) => {
       {exceptHours()}
     </div>
   )
-};
+}
 
 export default HoursControl;

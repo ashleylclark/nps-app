@@ -17,6 +17,7 @@ import Col from 'react-bootstrap/Col';
 import "./camping.css";
 import '../../components/noInfo/noInfo.css';
 
+// display camping info if it exists
 const Camping = () => {
   const location = useLocation();
   // pid holds park id

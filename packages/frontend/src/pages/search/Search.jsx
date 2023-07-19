@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { get_ids, get_key, get_keys } from "../../components/utilities";
+import Results from '../../components/results';
+import Loading from '../../components/loading/Loading';
+
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead.bs5.css';
 import "./search.css";
-import { get_ids, get_keys } from "../../components/utilities"
-import Results from '../../components/results';
-import { useNavigate } from 'react-router-dom';
-// import { fetch_data } from '../../components/utilities';
-import { get_key } from '../../components/utilities';
-import Loading from '../../components/loading/Loading';
-
-// if park chosen, no result page
-// if state chosen, show all parks for state
-// if actiivity, show parks with those activities
 
 // states and their codes
 var states = {};
@@ -32,6 +26,7 @@ var activities = {};
 // activity names
 var actNames = [];
 
+// display search page and form
 const Search = () => {
   const [loading, setLoading] = useState(true);
 
@@ -50,6 +45,7 @@ const Search = () => {
     return Object.keys(obj).length == 0;
   }
 
+  // get list of parks, states, and activites from backend
   const fetchFormData = async () => {
     // get all parks and park codes
     const parkResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/parks/`);
@@ -82,6 +78,7 @@ const Search = () => {
     fetchFormData().then(() => setLoading(false));
   }, []);
 
+  // display form depending on search method chosen
   const showForm = (value) => {
     if (value === "park") {
       return (
@@ -125,12 +122,12 @@ const Search = () => {
     }
   }
 
+  // get results from search form when button is clicked
   const handleClick = () => {
     if (!isObjEmpty(parkSelection)) {
       let result = get_key(parks, parkSelection[0])
       navigate(`${result}`);
     }
-
     // states/activities
     else {
       let stateResult = get_keys(states, stateSelection);
@@ -144,38 +141,10 @@ const Search = () => {
           setIsShown(true);
           setSelection({choice: { stateSelection, actSelection }, info: data});
         });
-      // console.log(selection);
     }
-    /*
-    else if (!isObjEmpty(stateSelection)) {
-      // convert to code
-      let result = get_key(states, stateSelection[0]);
+  }
 
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/parks/${result}`)
-        .then(response => response.json())
-        .then(data => {
-          setIsShown(true);
-          setSelection({choice: stateSelection, info: data});
-        });
-    }
-
-    else if (!isObjEmpty(actSelection)) {
-      // convert list of activites to list of ids
-      let result = get_ids(activities, actSelection);
-
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/act/${result}`)
-        .then(response => response.json())
-        .then(data => {
-          setIsShown(true);
-          setSelection({choice: actSelection, info: data});
-        });
-    }
-    else {
-      console.log("no option chosen");
-    }
-    */
-  };
-
+  // display search form and results when needed
   return loading ? <Loading /> : (
     <div id='search-page'>
       <Navbar id='searchNav'>

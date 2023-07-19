@@ -60,8 +60,7 @@ export const stateCodes = {
   VI: "U.S. Virgin Islands"
 };
 
-
+// convert state to state code
 export function toCode (state) {
-  // return (stateCodes[state]);
   return Object.keys(stateCodes).find(key => stateCodes[key] === state);
 }

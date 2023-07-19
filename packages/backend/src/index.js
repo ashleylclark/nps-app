@@ -9,7 +9,6 @@ import { getParksByActivity, getParksByState } from './filter.js';
 // defining express app
 const app = express();
 
-
 app.use(cors());
 app.use(express.json());
 
@@ -19,19 +18,16 @@ app.get('/', (req, res) => {
 })
 
 // park: info aboout park (use: parkCode)
-
 app.get('/park/:pkId', async (req, res) => {
   req.params;
   let data = await getData('parks', { parkCode: req.params.pkId });
   res.json(data);
 })
 
-// parks: park info using filters
+// parks-filtered: park info using filters
 app.get('/parks-filtered', async (req, res) => {
   const states = req.query.states;
-  // console.log(states);
   const activities = req.query.activities;
-  // console.log(activities);
   let parks = [];
 
   // states and activities
@@ -59,11 +55,8 @@ app.get('/parks-filtered', async (req, res) => {
   res.json(parks);
 });
 
-
 // parks: park names and park codes (use: stateCode or nothing)
-
 app.get('/parks/:stID?', async (req, res) => {
-  // var key = req.params.stID;
   req.params;
   let data = await getData('parks', {
     stateCode: req.params.stID,
@@ -71,9 +64,7 @@ app.get('/parks/:stID?', async (req, res) => {
     q: '"National Park"'
   });
   for (let i = data.length - 1; i >= 0; --i) {
-    // if (data[i].designation != 'National Park') {
     if (!data[i].fullName.includes("National Park") && !data[i].fullName.includes("National and State Parks")) {
-      // console.log(data[i].fullName);
       data.splice(i, 1);
     }
   }
@@ -82,17 +73,13 @@ app.get('/parks/:stID?', async (req, res) => {
   for (let i = 0; i < data.length; i++) {
     parks1[data[i].parkCode] = data[i].fullName;
   }
-  // console.log(data);
   res.json(parks1);
 })
 
-
 // states: all states and codes
-
 app.get('/states', (req, res) => {
   res.json(stateCodes);
 })
-
 
 // activities: get all activity names and ids
 app.get('/act', async (req, res) => {
@@ -100,48 +87,19 @@ app.get('/act', async (req, res) => {
   res.json(data);
 })
 
-
-// act/parks: get list of park names and codes by activities
-
-app.get('/act/:aId', async (req, res) => {
-  req.params;
-  let data = await getData('activities/parks', {
-    id: req.params.aId
-  });
-  // console.log(data);
-  let parks = {};
-  for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < data[i].parks.length; j++) {
-      if (data[i].parks[j].fullName.includes("National Park") || data[i].parks[j].fullName.includes("National and State Parks")) {
-        if (data[i].parks[j].designation !== "") {
-          parks[data[i].parks[j].parkCode] = data[i].parks[j].fullName;
-        }
-      }
-    }
-  }
-  res.json(parks);
-})
-
-
 // alert: get info about alerts with the park code
-
 app.get('/alert/:pkId', async (req, res) => {
   req.params;
   let data = await getData("alerts", { parkCode: req.params.pkId });
-  // console.log(data);
   res.json(data);
 })
 
-
 // camping: get info about camping in park w/ id
-
 app.get('/camps/:pkId', async (req, res) => {
   req.params;
   let data = await getData("campgrounds", { parkCode: req.params.pkId });
-  // console.log(data);
   res.json(data);
 })
-
 
 // media: get info about various medias w/ park id
 app.get('/media/:pkId', async (req, res) => {

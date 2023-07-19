@@ -56,10 +56,10 @@ app.get('/parks-filtered', async (req, res) => {
 });
 
 // parks: park names and park codes (use: stateCode or nothing)
-app.get('/parks/:stID?', async (req, res) => {
+app.get('/parks/:stId?', async (req, res) => {
   req.params;
   let data = await getData('parks', {
-    stateCode: req.params.stID,
+    stateCode: req.params.stId,
     limit: 200,
     q: '"National Park"'
   });
@@ -82,7 +82,7 @@ app.get('/states', (req, res) => {
 })
 
 // activities: get all activity names and ids
-app.get('/act', async (req, res) => {
+app.get('/activity', async (req, res) => {
   let data = await getData('activities');
   res.json(data);
 })

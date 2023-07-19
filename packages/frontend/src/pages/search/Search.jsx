@@ -64,7 +64,7 @@ const Search = () => {
     }
 
     // get all activities and ids
-    const actResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/act`);
+    const actResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/activity`);
     activities = await actResponse.json();
     // activity list for form
     for (let i = 0; i < activities.length; i++) {

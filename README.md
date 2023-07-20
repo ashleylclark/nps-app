@@ -1,15 +1,13 @@
 # NPS APP
 
-This app gets data from the National Park Service API and displays information
+This app retrieves data from the National Park Service API and displays information
 for the park chosen by the user. The user can search for a park using a list of
 all National Parks or filtering them by states and/or activities.
 
-THe public deployments for frontend and backend are available at the following:
+The public deployments for the frontend and backend are available at:
 
-Frontend deployed on Vercel:
-
-Backend deployed on Heroku:
-
+* Frontend deployed on Vercel: `https://nps-app-frontend.vercel.app/`
+* Backend deployed on Heroku: `https://nps-backend-c63d809b4823.herokuapp.com/`
 
 ## Table of Contents
 
@@ -17,11 +15,7 @@ Backend deployed on Heroku:
   * [Frontend](#frontend)
   * [Backend](#backend)
 * [Technologies](#technologies)
-* [Installation](#installation)
-* [Usage](#usage)
-  * [Frontend npm scripts](#frontend-npm-scripts)
-  * [Backend npm scripts](#backend-npm-scripts)
-
+* [Local Development and Setup](#local-development-and-setup)
 
 ## General Info
 
@@ -29,7 +23,7 @@ Backend deployed on Heroku:
 
 The app gets all parks, states, and activities from the backend to fill the search
 forms. Once a park is chosen and a page is opened, the respective information
-will be retreived from the backend.
+will be retrieved from the backend.
 
 For each park, the app will display information on different pages as follows:
 
@@ -56,67 +50,27 @@ from the NPS API:
 | /camps/:pkId | returns campground data for given park |
 | /media/:pkId | returns gallery, webcam, and video data for given park |
 
-
 ## Technologies
 
-Project is created with:
-* lerna: 6.6.2
+The overall project is a monolithic repository consisting of two packages - frontend
+and backend. It is managed by Lerna.
 
-Frontend is created with:
-* bootstrap: 5.2.3
-* eslint: 8.38.0
-* react: 18.2.0
-* react-bootstrap: 2.7.4
-* react-bootstrap-typeahead: 6.2.2
-* react-dom: 18.2.0
-* react-responsive-masonry: 2.1.7
-* react-router-dom: 6.11.1
-* vite: 4.3.2
+The frontend web application is created with React and JavaScript served via Vite.
+Bootstrap is used for styling and CSS.
 
-and written in JavaScript, HTML, and CSS
+The backend API is a Node.js Express web application.
 
-Backend is created with:
-* axios: 1.4.0
-* body-parser: 1.20.2
-* cors: 2.8.5
-* dotenv: 16.0.3
-* express: 4.18.2
-* lodash: 4.17.21
-* node: 18+
-* nodemon: 2.0.22
-* semistandard: 16.0.1
-
-and written JavaScript
-
-
-## Installation
+## Local Development and Setup
 
 This project requires npm and node to be installed as one of the project's
 dependencies.
 
-To install npm and node:
+To install dependencies run `npm install` then run `npm run dev`.
 
-```bash
-npm install
-```
+To run the frontend or backend, run `npm run dev` in their respective directories.
 
-## Usage
+To visit, run `localhost:[port]` in their respective directories with their
+respective ports:
 
-To run frontend or backend, run `npm run dev` in their respective directories
-
-To visit, run  `localhost:[port]` in thier respective directories with their
-respective ports
-
-### Frontend npm scripts
-
-* dev: vite
-* build: vite build
-* lint: eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0
-* preview: vite preview
-
-### Backend npm scripts
-
-* start: node src/index.js
-* dev: nodemon src/index.js
-* test: echo \"Error: no test specified\" && exit 1
-* format: semistandard --fix
+* frontend: `http://localhost:5173`
+* backend: `http://localhost:3000`

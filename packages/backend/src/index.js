@@ -12,17 +12,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 app.get('/', (req, res) => {
   res.send('OK');
-})
+});
 
 // park: info aboout park (use: parkCode)
 app.get('/park/:pkId', async (req, res) => {
-  req.params;
-  let data = await getData('parks', { parkCode: req.params.pkId });
+  const data = await getData('parks', { parkCode: req.params.pkId });
   res.json(data);
-})
+});
 
 // parks-filtered: park info using filters
 app.get('/parks-filtered', async (req, res) => {
@@ -36,19 +34,13 @@ app.get('/parks-filtered', async (req, res) => {
     const parksByState = await getParksByState(states);
     const parksByActivity = await getParksByActivity(activities);
     parks = _.intersectionBy(parksByState, parksByActivity, 'parkCode');
-  }
-  // states and no activities
-  else if (states && !activities) {
+  } else if (states && !activities) {
     // get parks by states
     parks = await getParksByState(states);
-  }
-  // activities and no states
-  else if (!states && activities) {
+  } else if (!states && activities) {
     // get parks by activities
     parks = await getParksByActivity(activities);
-  }
-  // no states and no activities (all parks)
-  else {
+  } else {
     // get all parks
     parks = await getParksByState();
   }
@@ -57,59 +49,55 @@ app.get('/parks-filtered', async (req, res) => {
 
 // parks: park names and park codes (use: stateCode or nothing)
 app.get('/parks/:stId?', async (req, res) => {
-  req.params;
-  let data = await getData('parks', {
+  const data = await getData('parks', {
     stateCode: req.params.stId,
     limit: 200,
     q: '"National Park"'
   });
   for (let i = data.length - 1; i >= 0; --i) {
-    if (!data[i].fullName.includes("National Park") && !data[i].fullName.includes("National and State Parks")) {
+    if (!data[i].fullName.includes('National Park') && !data[i].fullName.includes('National and State Parks')) {
       data.splice(i, 1);
     }
   }
   // only sends park name and code
-  let parks1 = {};
+  const parks1 = {};
   for (let i = 0; i < data.length; i++) {
     parks1[data[i].parkCode] = data[i].fullName;
   }
   res.json(parks1);
-})
+});
 
 // states: all states and codes
 app.get('/states', (req, res) => {
   res.json(stateCodes);
-})
+});
 
 // activities: get all activity names and ids
 app.get('/activity', async (req, res) => {
-  let data = await getData('activities');
+  const data = await getData('activities');
   res.json(data);
-})
+});
 
 // alert: get info about alerts with the park code
 app.get('/alert/:pkId', async (req, res) => {
-  req.params;
-  let data = await getData("alerts", { parkCode: req.params.pkId });
+  const data = await getData('alerts', { parkCode: req.params.pkId });
   res.json(data);
-})
+});
 
 // camping: get info about camping in park w/ id
 app.get('/camps/:pkId', async (req, res) => {
-  req.params;
-  let data = await getData("campgrounds", { parkCode: req.params.pkId });
+  const data = await getData('campgrounds', { parkCode: req.params.pkId });
   res.json(data);
-})
+});
 
 // media: get info about various medias w/ park id
 app.get('/media/:pkId', async (req, res) => {
-  req.params;
-  let img = await getData("multimedia/galleries", { parkCode: req.params.pkId });
-  let vid = await getData("multimedia/videos", { parkCode: req.params.pkId });
-  let cam = await getData("webcams", { parkCode: req.params.pkId });
-  let data = [img, cam, vid];
+  const img = await getData('multimedia/galleries', { parkCode: req.params.pkId });
+  const vid = await getData('multimedia/videos', { parkCode: req.params.pkId });
+  const cam = await getData('webcams', { parkCode: req.params.pkId });
+  const data = [img, cam, vid];
   res.json(data);
-})
+});
 
 const port = process.env.PORT || 3000;
 

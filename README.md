@@ -19,6 +19,8 @@ The public deployments for the frontend and backend are available at:
   * [Backend Node.js API](#backend-nodejs-api)
 * [Technologies](#technologies)
 * [Local Development and Setup](#local-development-and-setup)
+  * [Authorization](#authorization)
+* [Reflection](#reflection)
 
 ## General Info
 

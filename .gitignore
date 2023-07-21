@@ -1,3 +1,4 @@
 node_modules/
+packages/frontend/.env
 packages/backend/.env
 packages/backend/src/template.txt

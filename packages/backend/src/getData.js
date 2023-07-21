@@ -10,8 +10,7 @@ export async function getData (endpoint, params = {}) {
       params
     });
     return (res.data.data);
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 }

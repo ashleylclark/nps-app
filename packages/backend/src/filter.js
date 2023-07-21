@@ -10,7 +10,7 @@ export async function getParksByState (states) {
 export async function getParksByActivity (activities) {
   let parks = [];
   const res = await getData('activities/parks', { id: activities, limit: 1000 });
-  for (var activity of res) {
+  for (const activity of res) {
     parks = parks.concat(activity.parks);
   }
   return filterParks(parks);
@@ -24,4 +24,4 @@ export function filterParks (parks) {
   return data.map(
     ({ parkCode, states, designation, fullName }) => ({ parkCode, states, designation, fullName })
   );
-};
+}

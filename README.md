@@ -5,12 +5,7 @@ displays information for the park chosen by the user. The user can search for
 a park using a list of all National Parks or filtering them by states and/or
 activities.
 
-The NPS app is accessible from `https://nps-app-frontend.vercel.app/`
-
-The public deployments for the frontend and backend are available at:
-
-* Frontend deployed on Vercel: `https://nps-app-frontend.vercel.app/`
-* Backend deployed on Heroku: `https://nps-backend-c63d809b4823.herokuapp.com/`
+Note: This project was previously deployed at example.com, but the hosted version is no longer available. You can still run it locally using the instructions below.
 
 ## Table of Contents
 

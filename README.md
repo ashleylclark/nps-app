@@ -5,7 +5,9 @@ displays information for the park chosen by the user. The user can search for
 a park using a list of all National Parks or filtering them by states and/or
 activities.
 
-Note: This project was previously deployed at example.com, but the hosted version is no longer available. You can still run it locally using the instructions below.
+Note: This project was previously deployed at `https://nps-app-frontend.vercel.app/`,
+but the hosted version is no longer available. You can still run it locally using the
+instructions below.
 
 ## Table of Contents
 

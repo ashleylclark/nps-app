@@ -1,5 +1,7 @@
 # NPS APP
 
+**This repository has been archived and is now read-only.** 
+
 This application retrieves data from the National Park Service (NPS) API and
 displays information for the park chosen by the user. The user can search for
 a park using a list of all National Parks or filtering them by states and/or
